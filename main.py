@@ -1,5 +1,6 @@
 import streamlit as st
 from fpdf import FPDF
+import os
 
 def create_pdf(text):
     pdf = FPDF()
@@ -15,7 +16,13 @@ def main():
     if st.button("Create PDF"):
         create_pdf(text)
         st.success("PDF created successfully!")
-        st.download_button("Download PDF", "output.pdf")
+        with open("output.pdf", "rb") as file:
+            btn = st.download_button(
+                "Download PDF",
+                file,
+                file_name="output.pdf",
+                mime="application/pdf",
+            )
 
 if __name__ == "__main__":
     main()
